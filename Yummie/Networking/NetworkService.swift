@@ -40,7 +40,7 @@ struct NetworkService{
             if let data = data {
                 result = .success(data)
                 let responseString = String(data: data, encoding: .utf8) ?? "Could not stringify our data"
-//                print("The response is:\n\(responseString)")
+                print("The response is:\n\(responseString)")
             } else if let error = error {
                 result = .failure(error)
                 print("The error is: \(error.localizedDescription)")
@@ -52,8 +52,7 @@ struct NetworkService{
         
     }
     
-    private func handleResponse<T: Decodable>(result:Result<Data, Error>?,
-                                              completion: (Result<T,Error>) -> Void) {
+    private func handleResponse<T: Decodable>(result:Result<Data, Error>?,completion: (Result<T,Error>) -> Void) {
         guard let result = result else {
             completion(.failure(AppError.unknownError))
             return
