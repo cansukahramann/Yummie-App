@@ -16,25 +16,22 @@ class NetworkService {
     
     private var currentTask: URLSessionDataTask?
     
-    private func request(route: Route, method: Method, parameters: [String: Any]? = nil, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask? {
-        guard let request = createRequest(route: route, method: method, parameters: parameters) else {
-            completion(.failure(AppError.unknownError))
-            return nil
+    private func performHTTPRequest<T: Decodable>(route: Route, method: Method, parameters: [String: Any]? = nil, completion: @escaping (Result<T, Error>) -> Void) {
+        guard let request = makeHTTPRequest(route: route, method: method, parameters: parameters) else {
+            return completion(.failure(AppError.unknownError))
         }
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        self.currentTask = URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
-                completion(.success(data))
+                JSONMapper.map(data: data, completion: completion)
             } else if let error = error {
                 completion(.failure(error))
             }
         }
-        task.resume()
-        
-        return task
+        currentTask?.resume()
     }
     
-    private func createRequest(route: Route, method: Method, parameters: [String: Any]? = nil) -> URLRequest? {
+    private func makeHTTPRequest(route: Route, method: Method, parameters: [String: Any]? = nil) -> URLRequest? {
         let urlString = Route.baseUrl + route.description
         guard let url = urlString.asURL else { return nil }
         var urlRequest = URLRequest(url: url)
@@ -59,47 +56,19 @@ class NetworkService {
 
 extension NetworkService: RemoteAPI {
     func fetchCategories(completion: @escaping (Result<AllDishes, Error>) -> Void) {
-        currentTask = request(route: .fetchAllCategories, method: .get, completion: { result in
-            switch result {
-            case .success(let data):
-                JSONMapper.map(data: data, completion: completion)
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        })
+        performHTTPRequest(route: .fetchAllCategories, method: .get, completion: completion)
     }
     
     func placeOrder(dishId: String, name: String, completion: @escaping (Result<Order, Error>) -> Void) {
         let params = ["name": name]
-        currentTask = request(route: .placeOrder(dishId), method: .post, parameters: params, completion: { result in
-            switch result {
-            case .success(let data):
-                JSONMapper.map(data: data, completion: completion)
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        })
+        performHTTPRequest(route: .placeOrder(dishId), method: .post, parameters: params, completion: completion)
     }
     
     func fetchCategoryDishes(categoryId: String, completion: @escaping (Result<[Dish], Error>) -> Void) {
-        currentTask = request(route: .fetchCategoryDishes(categoryId), method: .get, completion: { result in
-            switch result {
-            case .success(let data):
-                JSONMapper.map(data: data, completion: completion)
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        })
+        performHTTPRequest(route: .fetchCategoryDishes(categoryId), method: .get, completion: completion)
     }
     
     func fetchOrders(completion: @escaping (Result<[Order], Error>) -> Void) {
-        currentTask = request(route: .fetchOrders, method: .get,completion: { result in
-            switch result {
-            case .success(let data):
-                JSONMapper.map(data: data, completion: completion)
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        })
+        performHTTPRequest(route: .fetchOrders, method: .get, completion: completion)
     }
 }
