@@ -21,26 +21,15 @@ class NetworkService {
     
     private init () {}
     
-    func fetchAllCategories(completion: @escaping(Result<AllDishes,Error>) -> Void){
-        request(route: .fetchAllCategories, method: .get, completion: completion)
-    }
-    func placeOrder(dishId: String, name: String,completion: @escaping (Result<Order,Error>) -> Void){
-        let params = ["name": name]
-        request(route: .placeOrder(dishId), method: .post, parameters: params, completion: completion)
-    }
-    func fetchCategoryDishes(categoryId: String, completion: @escaping(Result<[Dish],Error>) -> Void){
-        request(route: .fetchCategoryDishes(categoryId), method: .get, completion: completion)
-    }
-    func fetchOrders(completion: @escaping(Result<[Order],Error>) -> Void){
-        request(route: .fetchOrders, method: .get,completion: completion)
-    }
+    private var currentTask: URLSessionDataTask?
     
-    private func request<T: Decodable>(route:Route, method: Method, parameters:[String: Any]? = nil, completion: @escaping (Result<T,Error>) -> Void) {
+    private func request<T: Decodable>(route: Route, method: Method, parameters: [String: Any]? = nil, completion: @escaping (Result<T, Error>) -> Void) -> URLSessionDataTask? {
         guard let request = createRequest(route: route, method: method, parameters: parameters) else {
             completion(.failure(AppError.unknownError))
-            return }
+            return nil
+        }
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             var result: Result<Data, Error>?
             if let data = data {
                 result = .success(data)
@@ -52,7 +41,10 @@ class NetworkService {
             DispatchQueue.main.async {
                 self.handleResponse(result: result, completion: completion)
             }
-        }.resume()
+        }
+        task.resume()
+        
+        return task
     }
     
     private func handleResponse<T: Decodable>(result: Result<Data, Error>?, completion: (Result<T, Error>) -> Void) {
@@ -112,16 +104,16 @@ class NetworkService {
 
 extension NetworkService: RemoteAPI {
     func fetchCategories(completion: @escaping(Result<AllDishes,Error>) -> Void) {
-        request(route: .fetchAllCategories, method: .get, completion: completion)
+        currentTask = request(route: .fetchAllCategories, method: .get, completion: completion)
     }
     func placeOrder(dishId: String, name: String,completion: @escaping (Result<Order,Error>) -> Void) {
         let params = ["name": name]
-        request(route: .placeOrder(dishId), method: .post, parameters: params, completion: completion)
+        currentTask = request(route: .placeOrder(dishId), method: .post, parameters: params, completion: completion)
     }
     func fetchCategoryDishes(categoryId: String, completion: @escaping(Result<[Dish],Error>) -> Void) {
-        request(route: .fetchCategoryDishes(categoryId), method: .get, completion: completion)
+        currentTask = request(route: .fetchCategoryDishes(categoryId), method: .get, completion: completion)
     }
     func fetchOrders(completion: @escaping(Result<[Order],Error>) -> Void) {
-        request(route: .fetchOrders, method: .get,completion: completion)
+        currentTask = request(route: .fetchOrders, method: .get,completion: completion)
     }
 }
