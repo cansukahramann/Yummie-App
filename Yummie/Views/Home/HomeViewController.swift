@@ -29,20 +29,22 @@ class HomeViewController: UIViewController {
         
         navigationItem.backButtonTitle = ""
         
-        NetworkService.shared.fetchAllCategories { [weak self] (result) in
-            switch result{
-            case .success(let allDishes):
-                ProgressHUD.dismiss()
-                self?.categories = allDishes.categories ?? []
-                self?.populars = allDishes.populars ?? []
-                self?.specials = allDishes.specials ?? []
-                
-                self?.CategoryCollectionView.reloadData()
-                self?.PopularCollectionView.reloadData()
-                self?.SpecialsCollectionView.reloadData()
-                
-            case .failure(let error):
-                ProgressHUD.showError(error.localizedDescription)
+        NetworkService.shared.fetchCategories { [weak self] (result) in
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let allDishes):
+                    ProgressHUD.dismiss()
+                    self?.categories = allDishes.categories ?? []
+                    self?.populars = allDishes.populars ?? []
+                    self?.specials = allDishes.specials ?? []
+                    
+                    self?.CategoryCollectionView.reloadData()
+                    self?.PopularCollectionView.reloadData()
+                    self?.SpecialsCollectionView.reloadData()
+                    
+                case .failure(let error):
+                    ProgressHUD.showError(error.localizedDescription)
+                }
             }
         }
     }

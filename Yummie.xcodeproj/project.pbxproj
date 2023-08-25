@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041E2E422A989E6100913865 /* JSONMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E2E412A989E6100913865 /* JSONMapper.swift */; };
+		041E2E442A989EA100913865 /* RemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E2E432A989EA100913865 /* RemoteAPI.swift */; };
 		25089F17BD168AE477FBAE20 /* Pods_Yummie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D435B050409D3D53AB8E1988 /* Pods_Yummie.framework */; };
 		7E0C818F2A8512F50014FDF1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0C818E2A8512F50014FDF1 /* HomeViewController.swift */; };
 		7E0E7B252A9341750071E1FF /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0E7B242A9341750071E1FF /* ApiResponse.swift */; };
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		03085992CE9941ACC0211B1B /* Pods-Yummie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yummie.release.xcconfig"; path = "Target Support Files/Pods-Yummie/Pods-Yummie.release.xcconfig"; sourceTree = "<group>"; };
+		041E2E412A989E6100913865 /* JSONMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONMapper.swift; sourceTree = "<group>"; };
+		041E2E432A989EA100913865 /* RemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAPI.swift; sourceTree = "<group>"; };
 		7E0C818E2A8512F50014FDF1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7E0E7B242A9341750071E1FF /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		7E1D94362A8B743800B07A10 /* DishLandscapeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishLandscapeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -177,11 +181,13 @@
 		7E841DD12A8F537000F20460 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				041E2E432A989EA100913865 /* RemoteAPI.swift */,
 				7E841DD22A8F539200F20460 /* NetworkService.swift */,
 				7E841DD42A8F56C500F20460 /* Route.swift */,
 				7E841DD62A8F5EF600F20460 /* Method.swift */,
 				7E841DD82A8F99DD00F20460 /* AppError.swift */,
 				7E0E7B242A9341750071E1FF /* ApiResponse.swift */,
+				041E2E412A989E6100913865 /* JSONMapper.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -448,6 +454,8 @@
 				7E9F328C2A83AD2100C68E9F /* OnboardingViewController.swift in Sources */,
 				7E6E72BF2A8A4D1300E24C70 /* Dish.swift in Sources */,
 				7E4709E12A94F3E7009B9B62 /* UserDefaults+Extension.swift in Sources */,
+				041E2E422A989E6100913865 /* JSONMapper.swift in Sources */,
+				041E2E442A989EA100913865 /* RemoteAPI.swift in Sources */,
 				7E6E72BC2A8A480E00E24C70 /* DishPortraitCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

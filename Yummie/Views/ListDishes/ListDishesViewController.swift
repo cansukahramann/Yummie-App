@@ -25,13 +25,15 @@ class ListDishesViewController: UIViewController {
         
         ProgressHUD.show()
         NetworkService.shared.fetchCategoryDishes(categoryId: category.id ?? "") { [weak self] (result) in
-            switch result{
-            case .success(let dishes):
-                ProgressHUD.dismiss()
-                self?.dishes = dishes
-                self?.tableVİew.reloadData()
-            case.failure(let error):
-                ProgressHUD.showError(error.localizedDescription)
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let dishes):
+                    ProgressHUD.dismiss()
+                    self?.dishes = dishes
+                    self?.tableVİew.reloadData()
+                case.failure(let error):
+                    ProgressHUD.showError(error.localizedDescription)
+                }
             }
         }
     }
