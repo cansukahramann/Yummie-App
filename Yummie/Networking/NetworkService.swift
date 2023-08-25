@@ -7,8 +7,16 @@
 
 import Foundation
 
-struct NetworkService {
+protocol RemoteAPI {
+    func fetchCategories(completion: @escaping (Result<AllDishes, Error>) -> Void)
+    func placeOrder(dishId: String, name: String, completion: @escaping (Result<Order, Error>) -> Void)
+    func fetchCategoryDishes(categoryId: String, completion: @escaping (Result<[Dish], Error>) -> Void)
+    func fetchOrders(completion: @escaping (Result<[Order], Error>) -> Void)
+}
+
+class NetworkService {
     
+    #warning("remove shared instance (Singleton pattern)")
     static let shared = NetworkService()
     
     private init () {}
@@ -29,7 +37,6 @@ struct NetworkService {
     
     private func request<T: Decodable>(route:Route, method: Method, parameters:[String: Any]? = nil, completion: @escaping (Result<T,Error>) -> Void) {
         guard let request = createRequest(route: route, method: method, parameters: parameters) else {
-            
             completion(.failure(AppError.unknownError))
             return }
         
@@ -38,25 +45,24 @@ struct NetworkService {
             if let data = data {
                 result = .success(data)
                 let responseString = String(data: data, encoding: .utf8) ?? "Could not stringify our data"
-                print("The response is:\n\(responseString)")
             } else if let error = error {
                 result = .failure(error)
-                print("The error is: \(error.localizedDescription)")
             }
+            #warning("remove dispatching into main thread, since this is not the network layer's responsibility")
             DispatchQueue.main.async {
                 self.handleResponse(result: result, completion: completion)
             }
         }.resume()
     }
     
-    private func handleResponse<T: Decodable>(result:Result<Data, Error>?,completion: (Result<T,Error>) -> Void) {
+    private func handleResponse<T: Decodable>(result: Result<Data, Error>?, completion: (Result<T, Error>) -> Void) {
         guard let result = result else {
             completion(.failure(AppError.unknownError))
             return
         }
-        switch result{
+        
+        switch result {
         case .success(let data):
-            print(try? JSONSerialization.jsonObject(with: data))
             let decoder = JSONDecoder()
             guard let response = try?
                     decoder.decode(ApiResponse<T>.self, from: data) else {
@@ -64,12 +70,12 @@ struct NetworkService {
                 return
             }
             
-            if let error = response.error{
+            if let error = response.error {
                 completion(.failure(AppError.serverError(error)))
                 return
             }
             
-            if let decodeedData = response.data{
+            if let decodeedData = response.data {
                 completion(.success(decodeedData))
             } else {
                 completion(.failure(AppError.unknownError))
@@ -101,5 +107,21 @@ struct NetworkService {
             }
         }
         return urlRequest
+    }
+}
+
+extension NetworkService: RemoteAPI {
+    func fetchCategories(completion: @escaping(Result<AllDishes,Error>) -> Void) {
+        request(route: .fetchAllCategories, method: .get, completion: completion)
+    }
+    func placeOrder(dishId: String, name: String,completion: @escaping (Result<Order,Error>) -> Void) {
+        let params = ["name": name]
+        request(route: .placeOrder(dishId), method: .post, parameters: params, completion: completion)
+    }
+    func fetchCategoryDishes(categoryId: String, completion: @escaping(Result<[Dish],Error>) -> Void) {
+        request(route: .fetchCategoryDishes(categoryId), method: .get, completion: completion)
+    }
+    func fetchOrders(completion: @escaping(Result<[Order],Error>) -> Void) {
+        request(route: .fetchOrders, method: .get,completion: completion)
     }
 }
