@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NetworkService{
+struct NetworkService {
     
     static let shared = NetworkService()
     
@@ -25,16 +25,14 @@ struct NetworkService{
     }
     func fetchOrders(completion: @escaping(Result<[Order],Error>) -> Void){
         request(route: .fetchOrders, method: .get,completion: completion)
-        
     }
-    
     
     private func request<T: Decodable>(route:Route, method: Method, parameters:[String: Any]? = nil, completion: @escaping (Result<T,Error>) -> Void) {
         guard let request = createRequest(route: route, method: method, parameters: parameters) else {
             
             completion(.failure(AppError.unknownError))
             return }
-      
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             var result: Result<Data, Error>?
             if let data = data {
@@ -49,7 +47,6 @@ struct NetworkService{
                 self.handleResponse(result: result, completion: completion)
             }
         }.resume()
-        
     }
     
     private func handleResponse<T: Decodable>(result:Result<Data, Error>?,completion: (Result<T,Error>) -> Void) {
@@ -84,7 +81,6 @@ struct NetworkService{
     }
     
     func createRequest(route: Route, method: Method, parameters: [String: Any]? = nil) -> URLRequest? {
-        
         let urlString = Route.baseUrl + route.description
         guard let url = urlString.asURL else { return nil }
         var urlRequest = URLRequest(url: url)
