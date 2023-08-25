@@ -29,14 +29,16 @@ class ListOrdersViewController: UIViewController {
       
         
         NetworkService.shared.fetchOrders { [weak self] (result) in
-            switch result{
-            case.success(let orders):
-                ProgressHUD.dismiss()
-                
-                self?.orders = orders
-                self?.tableView.reloadData()
-            case.failure(let error):
-                ProgressHUD.showError(error.localizedDescription)
+            DispatchQueue.main.async {
+                switch result{
+                case.success(let orders):
+                    ProgressHUD.dismiss()
+                    
+                    self?.orders = orders
+                    self?.tableView.reloadData()
+                case.failure(let error):
+                    ProgressHUD.showError(error.localizedDescription)
+                }
             }
         }
     }

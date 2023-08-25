@@ -40,11 +40,13 @@ class DishDetailViewController: UIViewController {
         
         ProgressHUD.show("Placing Order...")
         NetworkService.shared.placeOrder(dishId: dish.id ?? "" , name: name) { (result) in
-            switch result {
-            case .success(_):
-                ProgressHUD.showSuccess("You order has been received. 👩🏼‍🍳")
-            case .failure(let error):
-                ProgressHUD.showError(error.localizedDescription)
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    ProgressHUD.showSuccess("You order has been received. 👩🏼‍🍳")
+                case .failure(let error):
+                    ProgressHUD.showError(error.localizedDescription)
+                }
             }
         }
         
