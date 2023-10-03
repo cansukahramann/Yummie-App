@@ -157,6 +157,16 @@
 			path = ListDishes;
 			sourceTree = "<group>";
 		};
+		7E1F4C2D2AC59D5900F6885F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7E9F32522A839F9400C68E9F /* AppDelegate.swift */,
+				7E9F32542A839F9400C68E9F /* SceneDelegate.swift */,
+				7E9F325B2A839F9500C68E9F /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		7E25387A2A866B1F0052AFB9 /* CardView */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,15 +225,13 @@
 		7E9F32512A839F9400C68E9F /* Yummie */ = {
 			isa = PBXGroup;
 			children = (
+				7E1F4C2D2AC59D5900F6885F /* Resources */,
 				7E841DD12A8F537000F20460 /* Networking */,
 				7E9F328D2A83B6DB00C68E9F /* Extension */,
 				7E9F32892A83AA1600C68E9F /* CustomViews */,
 				7E9F32882A83AA0600C68E9F /* Views */,
 				7E9F32872A83A9FC00C68E9F /* Models */,
-				7E9F32522A839F9400C68E9F /* AppDelegate.swift */,
-				7E9F32542A839F9400C68E9F /* SceneDelegate.swift */,
 				7E9F32582A839F9400C68E9F /* Main.storyboard */,
-				7E9F325B2A839F9500C68E9F /* Assets.xcassets */,
 				7E9F325D2A839F9500C68E9F /* LaunchScreen.storyboard */,
 				7E9F32602A839F9500C68E9F /* Info.plist */,
 			);

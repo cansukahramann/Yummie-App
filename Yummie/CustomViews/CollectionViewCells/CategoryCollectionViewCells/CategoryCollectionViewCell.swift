@@ -14,10 +14,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var CateogryImageView: UIImageView!
     @IBOutlet var CategoryTitleLbl: UILabel!
-//    override func awakeFromNib() {
-////        super.awakeFromNib()
-////
-////    }
 
     func setup(category: DishCategory){
         CategoryTitleLbl.text = category.title
