@@ -52,7 +52,7 @@ This project is licensed under the MIT License. See the LICENSE file for more in
 
 ## Contact 📧
 
-For questions, please contact us at fatmacansukahraman@gmail.com.
+For questions, please contact me at fatmacansukahraman@gmail.com.
 
 ## Project Video 🎥
 
