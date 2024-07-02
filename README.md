@@ -53,3 +53,8 @@ This project is licensed under the MIT License. See the LICENSE file for more in
 ## Contact 📧
 
 For questions, please contact us at fatmacansukahraman@gmail.com.
+
+## Project Video 🎥
+
+Check out our project video on [Watch the project video on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7100414889814351873/)
+
