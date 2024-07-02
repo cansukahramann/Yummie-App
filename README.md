@@ -34,7 +34,7 @@ pod install
 Upon launching the application, you will see an interface listing various dishes on the main screen. 
 Click on any dish to view its details and ordering options.
 
- ## Structure 📂
+## Structure 📂
  
 - Models/: Contains application data models.
 - Views/: Contains application UI components.
