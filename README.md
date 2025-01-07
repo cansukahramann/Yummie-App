@@ -1,5 +1,26 @@
 # Yummie 🍽️
 
+<p align="center">
+ <img src="https://github.com/user-attachments/assets/152de906-8e2a-485c-abf0-2d2bc3a6c70c" height="200" />
+  <img src="https://github.com/user-attachments/assets/bec10613-2b2f-418b-9a93-7410fa7dad13" height="200" />
+  <img src="https://github.com/user-attachments/assets/f63ee2cd-c739-4b88-9a41-93b50908bb43" height="200" />
+  <img src="https://github.com/user-attachments/assets/8b095ef6-053c-41a3-9a64-12032834c2a0" height="200" />
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3f257ad2-2ee6-43d4-ba5b-5c1313ac02ef" height="200" />
+  <img src="https://github.com/user-attachments/assets/152468e5-7576-407b-ae28-7300594e7342" height="200" />
+  <img src="https://github.com/user-attachments/assets/e4acf072-2a1d-4ebe-a20c-c1cbf0fdee2c" height="200" />
+  <img src="https://github.com/user-attachments/assets/f4a95353-0efe-459f-ae10-ff480fe07df6" height="200" />
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9270d0c2-0028-464b-a720-addeb4087e5b" height="200" />
+  <img src="https://github.com/user-attachments/assets/1341ecf6-97af-44c3-a3ea-eb881338f031" height="200" />
+  <img src="https://github.com/user-attachments/assets/b45cb258-a7d5-4bdb-95e8-511f8d718a56" height="200" />
+  <img src="https://github.com/user-attachments/assets/4a062162-53b2-4cf0-b340-556226befb74" height="200" />
+  <img src="https://github.com/user-attachments/assets/5c15166d-8df0-4169-8369-e7dbf1d592c3" height="200" />
+</p>
+
+
 Yummie is an iOS application that allows users to discover various dishes and place orders.
 
 ## Getting Started 🚀
